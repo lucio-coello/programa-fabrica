@@ -1,7 +1,9 @@
+//programa.c
 #include <stdio.h>
 #include <string.h>
 #include "funciones.h"
 
+ 
 int buscarProducto(char nombre[]) {
     for (int i = 0; i < totalProductos; i++) {
         if (strcmp(*(productos + i), nombre) == 0) {
@@ -73,6 +75,8 @@ void agregarProducto() {
 }
 void editarProducto() {
     char nombre[MAX_NOMBRE];
+    int valido;
+
     printf("Nombre del producto a editar: ");
     scanf("%s", nombre);
 
@@ -86,50 +90,66 @@ void editarProducto() {
     printf("Nuevo nombre: ");
     scanf("%s", nuevoNombre);
 
-    if (buscarProducto(nuevoNombre) != -1 && strcmp(nuevoNombre, productos[pos]) != 0) {
+    if (buscarProducto(nuevoNombre) != -1 && strcmp(nuevoNombre, *(productos + pos)) != 0) {
         printf("El nombre ya existe para otro producto.\n");
         return;
     }
 
     strcpy(*(productos + pos), nuevoNombre);
-
-    do {
+    valido = 0;
+    while (!valido) {
         printf("Nuevo tiempo por unidad: ");
-        scanf("%d", tiempo + pos);
-        if (*(tiempo + pos) <= 0)
-            printf("El tiempo debe ser mayor a 0.\n");
-    } while (*(tiempo + pos) <= 0);
-
-    do {
+        if (scanf("%d", tiempo + pos) == 1 && *(tiempo + pos) > 0) {
+            valido = 1;
+        } else {
+            printf("El tiempo debe ser mayor a 0 y válido.\n");
+            while (getchar() != '\n');
+        }
+    }
+    valido = 0;
+    while (!valido) {
         printf("Nuevos recursos por unidad: ");
-        scanf("%d", recursos + pos);
-        if (*(recursos + pos) <= 0)
-            printf("Los recursos deben ser mayores a 0.\n");
-    } while (*(recursos + pos) <= 0);
-
-    do {
+        if (scanf("%d", recursos + pos) == 1 && *(recursos + pos) > 0) {
+            valido = 1;
+        } else {
+            printf("Los recursos deben ser mayores a 0 y válidos.\n");
+            while (getchar() != '\n');
+        }
+    }
+    valido = 0;
+    while (!valido) {
         printf("Nueva demanda: ");
-        scanf("%d", demanda + pos);
-        if (*(demanda + pos) <= 0)
-            printf("La demanda debe ser mayor a 0.\n");
-    } while (*(demanda + pos) <= 0);
-
-    do {
+        if (scanf("%d", demanda + pos) == 1 && *(demanda + pos) > 0) {
+            valido = 1;
+        } else {
+            printf("La demanda debe ser mayor a 0 y válida.\n");
+            while (getchar() != '\n');
+        }
+    }
+    valido = 0;
+    while (!valido) {
         printf("Nuevo tiempo disponible total: ");
-        scanf("%d", tiempoDisponibleProducto + pos);
-        if (*(tiempoDisponibleProducto + pos) <= 0)
-            printf("El tiempo debe ser mayor a 0.\n");
-    } while (*(tiempoDisponibleProducto + pos) <= 0);
-
-    do {
+        if (scanf("%d", tiempoDisponibleProducto + pos) == 1 && *(tiempoDisponibleProducto + pos) > 0) {
+            valido = 1;
+        } else {
+            printf("El tiempo debe ser mayor a 0 y válido.\n");
+            while (getchar() != '\n');
+        }
+    }
+    valido = 0;
+    while (!valido) {
         printf("Nuevos recursos disponibles totales: ");
-        scanf("%d", recursosDisponibleProducto + pos);
-        if (*(recursosDisponibleProducto + pos) <= 0)
-            printf("Los recursos deben ser mayores a 0.\n");
-    } while (*(recursosDisponibleProducto + pos) <= 0);
+        if (scanf("%d", recursosDisponibleProducto + pos) == 1 && *(recursosDisponibleProducto + pos) > 0) {
+            valido = 1;
+        } else {
+            printf("Los recursos deben ser mayores a 0 y válidos.\n");
+            while (getchar() != '\n');
+        }
+    }
 
     printf("Producto editado correctamente.\n");
 }
+
 
 void eliminarProducto() {
     char nombre[MAX_NOMBRE];
@@ -188,3 +208,4 @@ void calcularTotales() {
             printf("No se cumple por falta de recursos (Faltan %d unidades).\n", recursosTotales - *(recursosDisponibleProducto + pos));
     }
 }
+// fin del programa.c
