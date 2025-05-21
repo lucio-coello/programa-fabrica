@@ -16,7 +16,7 @@ int main() {
             case 1: agregarProducto(); break;
             case 2: editarProducto(); break;
             case 3: eliminarProducto(); break;
-            case 4: calcularTotales(tiempoDisponible, recursosDisponibles); break;
+            case 4: calcularTotales(); break;
             case 5: printf("Saliendo...\n"); break;
             default: printf("Opcion invalida.\n");
         }
