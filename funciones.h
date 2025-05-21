@@ -11,7 +11,6 @@ int recursos[MAX_PRODUCTOS];
 int demanda[MAX_PRODUCTOS];
 int totalProductos;
 int opcion;
-int tiempoDisponible, recursosDisponibles;
 int tiempoDisponibleProducto[MAX_PRODUCTOS];
 int recursosDisponibleProducto[MAX_PRODUCTOS];
 
@@ -19,6 +18,6 @@ int buscarProducto(char nombre[]);
 void agregarProducto();
 void editarProducto();
 void eliminarProducto();
-void calcularTotales(int tiempoDisponible, int recursosDisponibles);
+void calcularTotales();
 
 #endif
