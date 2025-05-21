@@ -15,15 +15,17 @@ int buscarProducto(char nombre[]) {
 
 void agregarProducto() {
     int cantidad;
+    int valido;
 
     do {
         printf("Ingrese la cantidad de productos a agregar (maximo 5): ");
-        scanf("%d", &cantidad);
-        if (cantidad <= 0)
-            printf("La cantidad debe ser mayor a 0.\n");
-        else if (cantidad > 5)
-            printf("El maximo permitido es 5 productos.\n");
-    } while (cantidad <= 0 || cantidad > 5);
+        if (scanf("%d", &cantidad) == 1 && cantidad > 0 && cantidad <= 5) {
+            break;
+        } else {
+            printf("La cantidad debe ser un numero entre 1 y 5.\n");
+            while (getchar() != '\n');
+        }
+    } while (1);
 
     if (totalProductos + cantidad > MAX_PRODUCTOS) {
         printf("No hay espacio suficiente para agregar %d productos.\n", cantidad);
@@ -38,41 +40,67 @@ void agregarProducto() {
             if (buscarProducto(*(productos + totalProductos)) != -1)
                 printf("El producto ya existe. Ingrese un nombre diferente.\n");
         } while (buscarProducto(*(productos + totalProductos)) != -1);
-        do {
+        valido = 0;
+        while (!valido) {
             printf("Tiempo de produccion disponible (minutos): ");
-            scanf("%d", tiempoDisponibleProducto + totalProductos);
-            if (*(tiempoDisponibleProducto + totalProductos) <= 0)
-                printf("El tiempo debe ser mayor a 0.\n");
-        } while (*(tiempoDisponibleProducto + totalProductos) <= 0);
-        do {
+            if (scanf("%d", tiempoDisponibleProducto + totalProductos) == 1 && *(tiempoDisponibleProducto + totalProductos) > 0) {
+                valido = 1;
+            } else {
+                printf("El tiempo debe ser mayor a 0 y valido.\n");
+                while (getchar() != '\n');
+            }
+        }
+
+        valido = 0;
+        while (!valido) {
             printf("Recursos disponibles: ");
-            scanf("%d", recursosDisponibleProducto + totalProductos);
-            if (*(recursosDisponibleProducto + totalProductos) <= 0)
-                printf("Los recursos deben ser mayores a 0.\n");
-        } while (*(recursosDisponibleProducto + totalProductos) <= 0);
-        do {
+            if (scanf("%d", recursosDisponibleProducto + totalProductos) == 1 && *(recursosDisponibleProducto + totalProductos) > 0) {
+                valido = 1;
+            } else {
+                printf("Los recursos deben ser mayores a 0 y validos.\n");
+                while (getchar() != '\n');
+            }
+        }
+
+        valido = 0;
+        while (!valido) {
             printf("Tiempo de fabricacion por unidad: ");
-            scanf("%d", tiempo + totalProductos);
-            if (*(tiempo + totalProductos) <= 0)
-                printf("El tiempo debe ser mayor a 0.\n");
-        } while (*(tiempo + totalProductos) <= 0);
-        do {
+            if (scanf("%d", tiempo + totalProductos) == 1 && *(tiempo + totalProductos) > 0) {
+                valido = 1;
+            } else {
+                printf("El tiempo debe ser mayor a 0 y valido.\n");
+                while (getchar() != '\n');
+            }
+        }
+
+        valido = 0;
+        while (!valido) {
             printf("Recursos por unidad: ");
-            scanf("%d", recursos + totalProductos);
-            if (*(recursos + totalProductos) <= 0)
-                printf("Los recursos deben ser mayores a 0.\n");
-        } while (*(recursos + totalProductos) <= 0);
-        do {
+            if (scanf("%d", recursos + totalProductos) == 1 && *(recursos + totalProductos) > 0) {
+                valido = 1;
+            } else {
+                printf("Los recursos deben ser mayores a 0 y válidos.\n");
+                while (getchar() != '\n');
+            }
+        }
+
+        
+        valido = 0;
+        while (!valido) {
             printf("Cantidad demandada: ");
-            scanf("%d", demanda + totalProductos);
-            if (*(demanda + totalProductos) <= 0)
-                printf("La demanda debe ser mayor a 0.\n");
-        } while (*(demanda + totalProductos) <= 0);
+            if (scanf("%d", demanda + totalProductos) == 1 && *(demanda + totalProductos) > 0) {
+                valido = 1;
+            } else {
+                printf("La demanda debe ser mayor a 0 y valida.\n");
+                while (getchar() != '\n');
+            }
+        }
 
         printf("Producto agregado correctamente.\n");
         totalProductos++;
     }
 }
+
 void editarProducto() {
     char nombre[MAX_NOMBRE];
     int valido;
@@ -102,7 +130,7 @@ void editarProducto() {
         if (scanf("%d", tiempo + pos) == 1 && *(tiempo + pos) > 0) {
             valido = 1;
         } else {
-            printf("El tiempo debe ser mayor a 0 y válido.\n");
+            printf("El tiempo debe ser mayor a 0 y valido.\n");
             while (getchar() != '\n');
         }
     }
@@ -112,7 +140,7 @@ void editarProducto() {
         if (scanf("%d", recursos + pos) == 1 && *(recursos + pos) > 0) {
             valido = 1;
         } else {
-            printf("Los recursos deben ser mayores a 0 y válidos.\n");
+            printf("Los recursos deben ser mayores a 0 y validos.\n");
             while (getchar() != '\n');
         }
     }
@@ -122,7 +150,7 @@ void editarProducto() {
         if (scanf("%d", demanda + pos) == 1 && *(demanda + pos) > 0) {
             valido = 1;
         } else {
-            printf("La demanda debe ser mayor a 0 y válida.\n");
+            printf("La demanda debe ser mayor a 0 y valida.\n");
             while (getchar() != '\n');
         }
     }
@@ -132,7 +160,7 @@ void editarProducto() {
         if (scanf("%d", tiempoDisponibleProducto + pos) == 1 && *(tiempoDisponibleProducto + pos) > 0) {
             valido = 1;
         } else {
-            printf("El tiempo debe ser mayor a 0 y válido.\n");
+            printf("El tiempo debe ser mayor a 0 y valido.\n");
             while (getchar() != '\n');
         }
     }
@@ -142,7 +170,7 @@ void editarProducto() {
         if (scanf("%d", recursosDisponibleProducto + pos) == 1 && *(recursosDisponibleProducto + pos) > 0) {
             valido = 1;
         } else {
-            printf("Los recursos deben ser mayores a 0 y válidos.\n");
+            printf("Los recursos deben ser mayores a 0 y validos.\n");
             while (getchar() != '\n');
         }
     }
